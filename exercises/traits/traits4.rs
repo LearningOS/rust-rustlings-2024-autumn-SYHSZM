@@ -7,8 +7,6 @@
 // Execute `rustlings hint traits4` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 pub trait Licensed {
     fn licensing_info(&self) -> String {
         "some information".to_string()
@@ -23,9 +21,12 @@ impl Licensed for SomeSoftware {}
 impl Licensed for OtherSoftware {}
 
 // YOU MAY ONLY CHANGE THE NEXT LINE
-fn compare_license_types(software: ??, software_two: ??) -> bool {
+fn compare_license_types<T: Licensed, U: Licensed>(software: T, software_two: U) -> bool {
     software.licensing_info() == software_two.licensing_info()
-}
+}//software 和 software_two 的类型是 String，
+//而不是实现了 Licensed trait 的结构体 (SomeSoftware 和 OtherSoftware)。
+//因此，在这里调用 licensing_info() 是不可能的，因为 String 类型没有这个方法。
+//(不能天String的原因)
 
 #[cfg(test)]
 mod tests {
